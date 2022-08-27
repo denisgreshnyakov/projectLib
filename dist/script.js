@@ -585,8 +585,17 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("div").click(function (
 //console.log($("button").html("hello"));
 //console.log($(".some").closest(".findmeq"));
 //console.log($(".findme").siblings());
+//$("button").fadeIn(1800);
 
-Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("button").fadeIn(1800);
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("#first").on("click", () => {
+  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("div").eq(1).fadeOut(800);
+});
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-count="second"]').on("click", () => {
+  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("div").eq(2).fadeOut(800);
+});
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("button").eq(2).on("click", () => {
+  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])(".w-500").fadeOut(800);
+});
 
 /***/ })
 
