@@ -13,6 +13,8 @@ $("div").click(function () {
 
 //console.log($("button").html("hello"));
 
-console.log($(".some").closest(".findmeq"));
+//console.log($(".some").closest(".findmeq"));
 
 //console.log($(".findme").siblings());
+
+$("button").fadeIn(1800);
