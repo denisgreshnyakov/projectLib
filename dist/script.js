@@ -233,6 +233,63 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.find = function (selecto
   return this;
 };
 
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closest = function (selector) {
+  let counter = 0;
+
+  for (let i = 0; i < this.length; i++) {
+    let result = this[i].closest(selector); // мое условие, чтобы не было null, но все же что-то записывалось
+
+    if (result !== null) {
+      this[i] = result;
+    } else {
+      this[i] = "";
+    }
+
+    counter++;
+  }
+
+  const objLength = Object.keys(this).length;
+
+  for (; counter < objLength; counter++) {
+    //удаляем хвостик
+    delete this[counter];
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.siblings = function () {
+  let numberOfItems = 0;
+  let counter = 0;
+  const copyObj = Object.assign({}, this);
+
+  for (let i = 0; i < copyObj.length; i++) {
+    const arr = copyObj[i].parentNode.children; //находим элементы
+
+    for (let j = 0; j < arr.length; j++) {
+      if (copyObj[i] === arr[j]) {
+        continue;
+      } //записываем их по порядку
+
+
+      this[counter] = arr[j];
+      counter++;
+    }
+
+    numberOfItems += arr.length - 1;
+  }
+
+  this.length = numberOfItems;
+  const objLength = Object.keys(this).length;
+
+  for (; numberOfItems < objLength; numberOfItems++) {
+    //удаляем хвостик
+    delete this[numberOfItems];
+  }
+
+  return this;
+};
+
 /***/ }),
 
 /***/ "./src/js/lib/modules/attributes.js":
@@ -452,8 +509,10 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("button").on("click", f
 });
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("div").click(function () {
   console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])(this).index());
-});
-console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("div").eq(2).find(".some")); //console.log($("button").html("hello"));
+}); //console.log($("div").eq(2).find(".some"));
+//console.log($("button").html("hello"));
+
+console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])(".some").closest(".findmeq")); //console.log($(".findme").siblings());
 
 /***/ })
 
