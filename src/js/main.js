@@ -32,3 +32,37 @@ $("button")
   .on("click", () => {
     $(".w-500").fadeToggle(800);
   });
+
+$("#trigger").click(() => {
+  $("#trigger").createModal({
+    text: {
+      title: "Modal title",
+      body: `Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+      Praesentium ea doloremque voluptatum fugit nulla amet iusto minus
+      ipsam esse odit voluptatibus accusamus dolore blanditiis, magni
+      asperiores cumque vero. Neque, eligendi.`,
+    },
+    btns: {
+      count: 3,
+      settings: [
+        ["Close", ["btn-danger", "mr-10"], true],
+        [
+          "Save changes",
+          ["btn-success"],
+          false,
+          () => {
+            alert("Данные сохранены");
+          },
+        ],
+        [
+          "Another btn",
+          ["btn-warning", "ml-10"],
+          false,
+          () => {
+            alert("hello world");
+          },
+        ],
+      ],
+    },
+  });
+});

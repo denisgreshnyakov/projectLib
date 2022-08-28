@@ -136,7 +136,7 @@ function calcScroll() {
   return scrollWidth;
 }
 
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function (created) {
   for (let i = 0; i < this.length; i++) {
     const target = this[i].getAttribute("data-target");
     Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
@@ -145,30 +145,93 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
       document.body.style.overflow = "hidden";
       document.body.style.marginRight = `${scroll}px`;
     });
-  }
+    const closeElements = document.querySelectorAll(`${target} [data-close]`);
+    closeElements.forEach(elem => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(elem).click(() => {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(500);
+        setTimeout(() => {
+          document.body.style.overflow = "";
+          document.body.style.marginRight = `0px`;
 
-  const closeElements = document.querySelectorAll("[data-close]");
-  closeElements.forEach(elem => {
-    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(elem).click(() => {
-      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").fadeOut(500);
-      setTimeout(() => {
-        document.body.style.overflow = "";
-        document.body.style.marginRight = `0px`;
-      }, 500);
+          if (created) {
+            document.querySelector(target).remove();
+          }
+        }, 500);
+      });
     });
-  });
-  Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").click(e => {
-    if (e.target.classList.contains("modal")) {
-      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(".modal").fadeOut(500);
-      setTimeout(() => {
-        document.body.style.overflow = "";
-        document.body.style.marginRight = `0px`;
-      }, 500);
-    }
-  });
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).click(e => {
+      if (e.target.classList.contains("modal")) {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(500);
+        setTimeout(() => {
+          document.body.style.overflow = "";
+          document.body.style.marginRight = `0px`;
+
+          if (created) {
+            document.querySelector(target).remove();
+          }
+        }, 500);
+      }
+    });
+  }
 };
 
 Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-toggle="modal"]').modal();
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createModal = function () {
+  let {
+    text,
+    btns
+  } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  for (let i = 0; i < this.length; i++) {
+    let modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.setAttribute("id", this[i].getAttribute("data-target").slice(1)); //btns = {count: num, settings: [[text, classNames=[], close,cb]]}
+
+    const buttons = [];
+
+    for (let j = 0; j < btns.count; j++) {
+      let btn = document.createElement("button");
+      btn.classList.add("btn", ...btns.settings[j][1]);
+      btn.textContent = btns.settings[j][0];
+
+      if (btns.settings[j][2]) {
+        btn.setAttribute("data-close", true);
+      }
+
+      if (btns.settings[j][3] && typeof btns.settings[j][3] === "function") {
+        btn.addEventListener("click", btns.settings[j][3]);
+      }
+
+      buttons.push(btn);
+    }
+
+    modal.innerHTML = `
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <button class="close" data-close>
+            <span>&times;</span>
+          </button>
+          <div class="modal-header">
+            <div class="modal-title">
+              ${text.title}
+            </div>
+          </div>
+          <div class="modal-body">
+            ${text.body}
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        </div>
+      </div>
+    `;
+    modal.querySelector(".modal-footer").append(...buttons);
+    document.body.appendChild(modal);
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).modal(true);
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].getAttribute("data-target")).fadeIn(500);
+  }
+};
 
 /***/ }),
 
@@ -714,6 +777,25 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-count="second"]'
 });
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("button").eq(2).on("click", () => {
   Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])(".w-500").fadeToggle(800);
+});
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("#trigger").click(() => {
+  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])("#trigger").createModal({
+    text: {
+      title: "Modal title",
+      body: `Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+      Praesentium ea doloremque voluptatum fugit nulla amet iusto minus
+      ipsam esse odit voluptatibus accusamus dolore blanditiis, magni
+      asperiores cumque vero. Neque, eligendi.`
+    },
+    btns: {
+      count: 3,
+      settings: [["Close", ["btn-danger", "mr-10"], true], ["Save changes", ["btn-success"], false, () => {
+        alert("Данные сохранены");
+      }], ["Another btn", ["btn-warning", "ml-10"], false, () => {
+        alert("hello world");
+      }]]
+    }
+  });
 });
 
 /***/ })
