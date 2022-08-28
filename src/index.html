@@ -40,12 +40,18 @@
             alt="photo"
           />
           <div class="card-body">
-            <div class="card-title">Card title</div>
+            <div class="card-title">Card title#1</div>
             <p class="card-text">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Lorem
               ipsum dolor sit, amet consectetur adipisicing elit.
             </p>
-            <a href="#" class="btn btn-primary">Link to</a>
+            <a
+              href="#"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              >Link to</a
+            >
           </div>
         </div>
         <div class="card">
@@ -60,11 +66,64 @@
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Lorem
               ipsum dolor sit, amet consectetur adipisicing elit.
             </p>
-            <a href="#" class="btn btn-primary">Link to</a>
+            <a
+              href="#"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModal2"
+              >Link to</a
+            >
+          </div>
+        </div>
+      </div>
+
+      
+
+      <!-- Modals -->
+      <div class="modal" id="exampleModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <button class="close" data-close>
+              <span>&times;</span>
+            </button>
+            <div class="modal-header">
+              <div class="modal-title">Modal title</div>
+            </div>
+            <div class="modal-body">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Praesentium ea doloremque voluptatum fugit nulla amet iusto minus
+              ipsam esse odit voluptatibus accusamus dolore blanditiis, magni
+              asperiores cumque vero. Neque, eligendi.
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-danger" data-close>Close</button>
+              <button class="btn btn-success">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="modal" id="exampleModal2">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button class="close" data-close>
+            <span>&times;</span>
+          </button>
+          <div class="modal-header">
+            <div class="modal-title">Modal title</div>
+          </div>
+          <div class="modal-body">
+            Lorem ipsum dolor
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-close>Close</button>
+            <button class="btn btn-success">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <script src="script.js"></script>
   </body>
